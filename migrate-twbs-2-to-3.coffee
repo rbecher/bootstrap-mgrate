@@ -175,5 +175,8 @@ jQuery ->
 
   # TODO check dependency on underscore and embed it if needed
 
+  # consider using zepto instead of jQuery
+  # see for yourself which is enabled (typeof prototype?)
+
   # TODO make a difference between different areas and make default options
   window.MigrateTwBs = check
