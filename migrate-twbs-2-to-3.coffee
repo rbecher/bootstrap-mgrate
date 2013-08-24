@@ -63,10 +63,10 @@ jQuery ->
     # check grid changes
     changeElementClass 'container-fluid', 'container', 'container', transform
     changeElementClass 'row-fluid', 'row', 'row', transform
-    _.each [1..13], (num) ->
+    $.each [1..13], (num) ->
       changeElementClass "span#{num}", "col-lg-#{num}", "span of length #{num}", transform
       # TODO consider a way of dealing with other media sizes
-    _.each [1..12], (num) ->
+    $.each [1..12], (num) ->
       changeElementClass "offset#{num}", "col-md-offset-#{num}", "offset of length #{num}", transform
 
     # Navbar Structural Changes
@@ -172,8 +172,6 @@ jQuery ->
   # desired behaviour:
   # Bootstrap 2.x: Warn
   # Bootstrap 3.x: Warn and change (classes) accordingly
-
-  # TODO check dependency on underscore and embed it if needed
 
   # consider using zepto instead of jQuery
   # see for yourself which is enabled (typeof prototype?)
