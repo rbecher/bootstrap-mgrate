@@ -173,8 +173,23 @@ jQuery ->
   # Bootstrap 2.x: Warn
   # Bootstrap 3.x: Warn and change (classes) accordingly
 
-  # consider using zepto instead of jQuery
-  # see for yourself which is enabled (typeof prototype?)
+  # <s>stolen</s>borrowed from foundation :-)
+  # Accommodate running jQuery or Zepto in noConflict() mode by
+  # using an anonymous function to redefine the $ shorthand name.
+  # See http://docs.jquery.com/Using_jQuery_with_Other_Libraries
+  # and http://zeptojs.com/
+  libFuncName = null;
+
+  if typeof jQuery is "undefined" and
+      typeof Zepto is "undefined" and
+      typeof $ is "function"
+      libFuncName = $
+  else if typeof jQuery is "function"
+    libFuncName = jQuery
+  else if typeof Zepto is "function"
+    libFuncName = Zepto
+  else
+    throw new TypeError()
 
   # TODO make a difference between different areas and make default options
   window.MigrateTwBs = check

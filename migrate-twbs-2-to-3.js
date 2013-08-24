@@ -87,10 +87,10 @@
       info("Starting migration helper for twitter bootstrap (" + version + ")");
       changeElementClass('container-fluid', 'container', 'container', transform);
       changeElementClass('row-fluid', 'row', 'row', transform);
-      _.each([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], function(num) {
+      $.each([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], function(num) {
         return changeElementClass("span" + num, "col-lg-" + num, "span of length " + num, transform);
       });
-      _.each([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], function(num) {
+      $.each([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], function(num) {
         return changeElementClass("offset" + num, "col-md-offset-" + num, "offset of length " + num, transform);
       });
       changeElementClass('brand', 'navbar-brand', 'brand in navbar', transform);
