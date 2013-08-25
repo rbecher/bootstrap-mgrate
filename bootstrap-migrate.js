@@ -156,5 +156,5 @@
 }).call(this);
 
 /*
-//@ sourceMappingURL=migrate-twbs-2-to-3.map
+//@ sourceMappingURL=bootstrap-migrate.map
 */
