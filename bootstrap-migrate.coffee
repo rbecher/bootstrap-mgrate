@@ -193,4 +193,4 @@ jQuery ->
     throw new TypeError()
 
   # TODO make a difference between different areas and make default options
-  window.MigrateTwBs = check
+  window.BootstrapMigrate = check

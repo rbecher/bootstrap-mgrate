@@ -150,7 +150,7 @@
     } else {
       throw new TypeError();
     }
-    return window.MigrateTwBs = check;
+    return window.BootstrapMigrate = check;
   });
 
 }).call(this);
