@@ -2,7 +2,7 @@
 # It is part of the Migrate-to-Twitter-Bootstrap-3-script
 # Get it on https://github.com/rbecher/migrate-to-twbs3
 
-jQuery ->
+$ ->
   "use strict"; # jshint ;_;
 
   # ref: http://getbootstrap.com/getting-started/#migration :-)
@@ -10,7 +10,21 @@ jQuery ->
   # ref: http://code.divshot.com/bootstrap3_upgrader/
   # ref: http://bootstrap3.kissr.com/
 
-  $ = jQuery
+  ### --------------------------------------------
+  | Options
+  -------------------------------------------- ###
+  defaults =
+    autoRun: false
+    transform: false
+    showInfo: true
+    showWarning: true
+    colorize: false # colorize changed elements
+    colorType: "border"
+    color: "red"
+
+  ### --------------------------------------------
+  | Helper
+  -------------------------------------------- ###
   log = (message) ->
     console.log message
   info = (message) ->
@@ -21,6 +35,10 @@ jQuery ->
     console.warn message
 
   version = '0.0.1'
+
+  # convenience method for creating new jQuery objects
+  # seen at jQuery colorbox http://www.jacklmoore.com/colorbox
+  $tag = (tag, class, id, css)
 
   changeElementClass = (oldClass, newClass, name, transform, tagName = '') ->
     el = $ "#{tagName}.#{oldClass}"
@@ -57,6 +75,9 @@ jQuery ->
           transformable.wrapAll(document.createElement(outer))
           info "Transformed #{name}"
 
+  ### --------------------------------------------
+  | Checks
+  -------------------------------------------- ###
   check = (transform = false) ->
     info "Starting migration helper for twitter bootstrap (#{version})"
 
