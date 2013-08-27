@@ -7,15 +7,16 @@
     --------------------------------------------
     */
 
-    var addClassToElement, changeElementClass, check, defaults, error, info, libFuncName, log, removeElementClass, version, warn, wrapElementInElement;
+    var $tag, addClassToElement, changeElementClass, check, defaults, error, info, libFuncName, log, publicMethod, removeElementClass, version, warn, wrapElementInElement;
     defaults = {
       autoRun: false,
       transform: false,
       showInfo: true,
       showWarning: true,
       colorize: false,
-      colorType: "border",
-      color: "red"
+      colorType: 'border',
+      color: 'red',
+      checks: ['grid', 'structure', 'buttons', 'responsive', 'icons', 'form']
     };
     /* --------------------------------------------
     | Helper
@@ -35,7 +36,32 @@
       return console.warn(message);
     };
     version = '0.0.1';
-    $tag;
+    $tag = function(tag, classes, id, css) {
+      var element, klass, _i, _len;
+      if (classes == null) {
+        classes = [];
+      }
+      if (id == null) {
+        id = null;
+      }
+      if (css == null) {
+        css = null;
+      }
+      element = document.createElement(tag);
+      if (id) {
+        element.id = id;
+      }
+      if (classes.length !== 0) {
+        for (_i = 0, _len = classes.length; _i < _len; _i++) {
+          klass = classes[_i];
+          element.addClass(klass);
+        }
+      }
+      if (css) {
+        element.style.cssText = css;
+      }
+      return $(element);
+    };
     changeElementClass = function(oldClass, newClass, name, transform, tagName) {
       var el;
       if (tagName == null) {
@@ -99,6 +125,21 @@
         }
       }
     };
+    if ($.BootstrapMigrate) {
+      return;
+    }
+    publicMethod = $.fn[BootstrapMigrate] = $[BootstrapMigrate] = function(options) {
+      if (options == null) {
+        options = {};
+      }
+      this.each(function() {
+        return $.data(this, BootstrapMigrate, $.extend({}, $.data(this, BootstrapMigrate) || defaults, options));
+      });
+      if (options.autoRun) {
+        return check(options.transform);
+      }
+    };
+    publicMethod.settings = defaults;
     /* --------------------------------------------
     | Checks
     --------------------------------------------
@@ -178,7 +219,3 @@
   });
 
 }).call(this);
-
-/*
-//@ sourceMappingURL=bootstrap-migrate.map
-*/

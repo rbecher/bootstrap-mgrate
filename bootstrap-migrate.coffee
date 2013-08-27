@@ -18,9 +18,10 @@ $ ->
     transform: false
     showInfo: true
     showWarning: true
-    colorize: false # colorize changed elements
-    colorType: "border"
-    color: "red"
+    colorize: false
+    colorType: 'border'
+    color: 'red'
+    checks: [ 'grid', 'structure', 'buttons', 'responsive', 'icons', 'form' ]
 
   ### --------------------------------------------
   | Helper
@@ -38,7 +39,15 @@ $ ->
 
   # convenience method for creating new jQuery objects
   # seen at jQuery colorbox http://www.jacklmoore.com/colorbox
-  $tag = (tag, class, id, css)
+  $tag = (tag, classes = [], id = null, css = null) ->
+    element = document.createElement tag
+    if id
+      element.id = id
+    unless classes.length is 0
+      (element.addClass klass for klass in classes)
+    if css
+      element.style.cssText = css
+    $ element
 
   changeElementClass = (oldClass, newClass, name, transform, tagName = '') ->
     el = $ "#{tagName}.#{oldClass}"
@@ -75,6 +84,19 @@ $ ->
           transformable.wrapAll(document.createElement(outer))
           info "Transformed #{name}"
 
+  if $.BootstrapMigrate
+    # already exists, don't do anything at all
+    return
+
+  publicMethod = $.fn[BootstrapMigrate] = $[BootstrapMigrate] = (options = {}) ->
+    this.each ->
+      $.data(this, BootstrapMigrate, $.extend({}, $.data(this, BootstrapMigrate) || defaults, options))
+
+    if options.autoRun
+      check options.transform
+
+  publicMethod.settings = defaults
+
   ### --------------------------------------------
   | Checks
   -------------------------------------------- ###
@@ -82,6 +104,7 @@ $ ->
     info "Starting migration helper for twitter bootstrap (#{version})"
 
     # check grid changes
+
     changeElementClass 'container-fluid', 'container', 'container', transform
     changeElementClass 'row-fluid', 'row', 'row', transform
     $.each [1..12], (i, num) ->
